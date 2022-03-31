@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="NCDMB_LnD">
+    <output-path>$PROJECT_DIR$/out/artifacts/NCDMB_LnD</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="NCDMB_LnD/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="NCDMB_LnD" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

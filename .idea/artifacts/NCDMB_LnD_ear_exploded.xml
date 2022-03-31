@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="NCDMB_LnD:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/NCDMB_LnD_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="NCDMB_LnD/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>
