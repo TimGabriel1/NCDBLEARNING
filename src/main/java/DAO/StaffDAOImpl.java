@@ -37,7 +37,7 @@ public class StaffDAOImpl implements StaffDAO{
 //            staff.setDepartment(resultSet.getInt("department"));
 //            staff.setLocation(resultSet.getInt("Location"));
 //            staff.setGradeLevel(resultSet.getInt("gradeLevel"));
-            staff.setType(StaffType.valueOf(resultSet.getString("type")));
+//            staff.setType(StaffType.valueOf(resultSet.getString("type")));
 //            staff.setRoles(resultSet.getString("roles"));
             staff.setActive(resultSet.getBoolean("isActive"));
             staffList.add(staff);
