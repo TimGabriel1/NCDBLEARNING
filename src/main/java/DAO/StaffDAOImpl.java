@@ -41,9 +41,10 @@ public class StaffDAOImpl implements StaffDAO{
 //            staff.setRoles(resultSet.getString("roles"));
             staff.setActive(resultSet.getBoolean("isActive"));
             staffList.add(staff);
-            DBUtil.closeConnection();
+
 
         }
+        DBUtil.closeConnection();
         return staffList;
     }
 
@@ -72,14 +73,12 @@ public class StaffDAOImpl implements StaffDAO{
             preparedStmt.setString(9, staff.getStatus().toString());
             preparedStmt.setString(10, staff.getRoles().toString());
             preparedStmt.setBoolean(11, staff.isActive());
-
-
-
             preparedStmt.executeUpdate();
             flag = true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            flag = false;
 
         }
         return flag;
@@ -129,7 +128,7 @@ public class StaffDAOImpl implements StaffDAO{
             staff.setType(StaffType.valueOf(resultSet.getString("type")));
 //            staff.setRoles(resultSet.getString("roles"));
             staff.setActive(resultSet.getBoolean("isActive"));
-            DBUtil.closeConnection();
+
 
         }
         DBUtil.closeConnection();
