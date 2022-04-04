@@ -20,10 +20,7 @@ public class DBUtil {
 
     public static Connection openConnection() throws ClassNotFoundException, SQLException{
         //Check the connection
-        if(con != null){
-            return con;
-        }
-        else{
+        if (con == null) {
 
             //load the driver
             Class.forName(DRIVER);
@@ -31,9 +28,9 @@ public class DBUtil {
             //Get the connection
             con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             //Return the connection
-            return con;
 
         }
+        return con;
     }
 
     public static void closeConnection(){

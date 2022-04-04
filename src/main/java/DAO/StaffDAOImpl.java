@@ -34,11 +34,7 @@ public class StaffDAOImpl implements StaffDAO{
             staff.setMiddleName(resultSet.getString("middleName"));
             staff.setSurnName(resultSet.getString("surnName"));
             staff.setStaffNo(resultSet.getString("staffNo"));
-//            staff.setDepartment(resultSet.getInt("department"));
-//            staff.setLocation(resultSet.getInt("Location"));
-//            staff.setGradeLevel(resultSet.getInt("gradeLevel"));
-//            staff.setType(StaffType.valueOf(resultSet.getString("type")));
-//            staff.setRoles(resultSet.getString("roles"));
+
             staff.setActive(resultSet.getBoolean("isActive"));
             staffList.add(staff);
 
@@ -122,11 +118,7 @@ public class StaffDAOImpl implements StaffDAO{
             staff.setMiddleName(resultSet.getString("middleName"));
             staff.setSurnName(resultSet.getString("surnName"));
             staff.setStaffNo(resultSet.getString("staffNo"));
-//            staff.setDepartment(resultSet.getInt("department"));
-//            staff.setLocation(resultSet.getInt("Location"));
-//            staff.setGradeLevel(resultSet.getInt("gradeLevel"));
             staff.setType(StaffType.valueOf(resultSet.getString("type")));
-//            staff.setRoles(resultSet.getString("roles"));
             staff.setActive(resultSet.getBoolean("isActive"));
 
 
@@ -184,7 +176,7 @@ public class StaffDAOImpl implements StaffDAO{
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(StaffDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }catch (Exception e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         return flag;
     }
