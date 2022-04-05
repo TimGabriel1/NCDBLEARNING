@@ -1,5 +1,7 @@
 package Model;
 
+import Enums.TrainingQualification;
+
 public class TrainingCourse {
     private int id;
     private String name;

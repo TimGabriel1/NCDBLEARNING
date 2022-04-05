@@ -50,7 +50,7 @@ public class StaffDAOImpl implements StaffDAO{
         boolean flag = false;
         try {
 
-            String sql = "insert into Staff( firstName, middleName,surnName, staffNo, department, location, gradeLevel, type, status, roles) "
+            String sql = "insert into Staff( firstName, middleName,surnName, staffNo, department, location, gradeLevel, type, status, roles, isActive) "
                     + "values(?,?,?,?,?,?,?,?,?,?,?)";
             try {
                 connection = DBUtil.openConnection();

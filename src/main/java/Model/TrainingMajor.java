@@ -1,5 +1,7 @@
 package Model;
 
+import Enums.TrainingSponsor;
+
 import java.util.Date;
 
 public class TrainingMajor {
