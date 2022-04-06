@@ -6,6 +6,7 @@ import Enums.TrainingSponsor;
 import java.util.ArrayList;
 
 public class Nomination {
+    private int id;
     private Training training;
     private TrainingProvider trainingProvider;
     private TrainingSponsor trainingSponsor;
@@ -15,12 +16,21 @@ public class Nomination {
     public Nomination() {
     }
 
-    public Nomination(Training training, TrainingProvider trainingProvider, TrainingSponsor trainingSponsor, TrainingResidence trainingResidence, ArrayList<Staff> nominees) {
+    public Nomination(int id, Training training, TrainingProvider trainingProvider, TrainingSponsor trainingSponsor, TrainingResidence trainingResidence, ArrayList<Staff> nominees) {
+        this.id = id;
         this.training = training;
         this.trainingProvider = trainingProvider;
         this.trainingSponsor = trainingSponsor;
         this.trainingResidence = trainingResidence;
         this.nominees = nominees;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Training getTraining() {
@@ -66,11 +76,12 @@ public class Nomination {
     @Override
     public String toString() {
         return "Nomination{" +
-                "training=" + training +
+                "id=" + id +
+                ", training=" + training +
                 ", trainingProvider=" + trainingProvider +
                 ", trainingSponsor=" + trainingSponsor +
                 ", trainingResidence=" + trainingResidence +
-                ", nominees=" + nominees +
+                ", nominees=" + nominees.toString() +
                 '}';
     }
 }
