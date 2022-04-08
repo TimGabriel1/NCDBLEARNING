@@ -45,7 +45,7 @@ public class GradeLevelDAOImpl implements GradeLevelDAO {
 
     @Override
     public boolean saveGradeLevel(GradeLevel gradeLevel) {
-
+        System.out.println("Gradelevel to save" + gradeLevel.toString());
         boolean flag;
         try {
 
@@ -81,11 +81,7 @@ public class GradeLevelDAOImpl implements GradeLevelDAO {
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.executeUpdate();
             flag = true;
-        }catch(SQLException ex){
-            ex.printStackTrace();
-            flag = false;
-        }
-        catch(ClassNotFoundException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             ex.printStackTrace();
         }
         DBUtil.closeConnection();
@@ -126,14 +122,13 @@ public class GradeLevelDAOImpl implements GradeLevelDAO {
             preparedStmt.setString(1, gradeLevel.getName());
             preparedStmt.setString(2, gradeLevel.getLabel());
             preparedStmt.setString(3, gradeLevel.getKey());
+            preparedStmt.setInt(4, gradeLevel.getId());
              preparedStmt.executeUpdate();
             flag = true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GradeLevelDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (Exception e){
-            System.out.println(e);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return flag;
     }

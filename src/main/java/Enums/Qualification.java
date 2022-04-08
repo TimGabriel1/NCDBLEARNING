@@ -1,5 +1,5 @@
 package Enums;
 
-public enum TrainingQualification {
+public enum Qualification {
     CERTIFICATE, DEGREE, DIPLOMA
 }

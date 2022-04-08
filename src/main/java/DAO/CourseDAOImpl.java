@@ -1,6 +1,7 @@
 package DAO;
 
-import Model.Location;
+import Enums.Qualification;
+import Model.Course;
 import Util.DBUtil;
 
 import java.sql.*;
@@ -9,17 +10,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LocationDAOImpl implements LocationDAO{
+public class CourseDAOImpl implements CourseDAO{
+
     private Connection connection;
     private ResultSet resultSet;
     private PreparedStatement preparedStmt;
 
+
     @Override
-    public List<Location> getAllLocation() throws SQLException, ClassNotFoundException {
+    public List<Course> getAllCourses() throws SQLException, ClassNotFoundException {
+        List<Course> courseList = new ArrayList<>();
 
-        List<Location> locationList = new ArrayList<>();
-
-        String sql = "select * from Location ";
+        String sql = "select * from Course";
 
         connection = DBUtil.openConnection();
 
@@ -28,23 +30,23 @@ public class LocationDAOImpl implements LocationDAO{
         resultSet = statement.executeQuery(sql);
 
         while (resultSet.next()) {
-            Location location = new Location();
-            location.setId(resultSet.getInt("id"));
-            location.setName(resultSet.getString("name"));
-            location.setLabel(resultSet.getString("label"));
-            location.setAddress(resultSet.getString("address"));
-            locationList.add(location);
+            Course course = new Course();
+            course.setId(resultSet.getInt("id"));
+            course.setName(resultSet.getString("name"));
+            course.setDescription(resultSet.getString("description"));
+            course.setQualification(Qualification.valueOf(resultSet.getString("qualification")));
+            courseList.add(course);
         }
         DBUtil.closeConnection();
-        return locationList;
+        return courseList;
     }
 
     @Override
-    public boolean saveLocation(Location location) {
+    public boolean saveCourse(Course course) {
         boolean flag;
         try {
 
-            String sql = "insert into Location(name, label, address) "
+            String sql = "insert into Course(name, description, qualification) "
                     + "values(?,?,?)";
             try {
                 connection = DBUtil.openConnection();
@@ -52,9 +54,9 @@ public class LocationDAOImpl implements LocationDAO{
                 Logger.getLogger(StaffDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
             preparedStmt = connection.prepareStatement(sql);
-            preparedStmt.setString(1,location.getName());
-            preparedStmt.setString(2, location.getLabel());
-            preparedStmt.setString(3, location.getAddress());
+            preparedStmt.setString(1,course.getName());
+            preparedStmt.setString(2, course.getDescription());
+            preparedStmt.setString(3, course.getQualification().name());
 
             preparedStmt.executeUpdate();
             flag = true;
@@ -68,10 +70,10 @@ public class LocationDAOImpl implements LocationDAO{
     }
 
     @Override
-    public boolean deleteLocation(int id) {
+    public boolean deleteCourse(int id) {
         boolean flag = false;
         try {
-            String sql = "DELETE FROM Location WHERE id=" + id;
+            String sql = "DELETE FROM Course WHERE id=" + id;
             connection = DBUtil.openConnection();
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.executeUpdate();
@@ -87,9 +89,9 @@ public class LocationDAOImpl implements LocationDAO{
     }
 
     @Override
-    public Location getLocation(int id) throws SQLException, ClassNotFoundException {
-        String sql = "select * from Location where id =" + id;
-    Location location = null;
+    public Course getCourse(int id) throws SQLException, ClassNotFoundException {
+        String sql = "select * from Course where id =" + id;
+        Course course = null;
         connection = DBUtil.openConnection();
 
 
@@ -97,29 +99,29 @@ public class LocationDAOImpl implements LocationDAO{
         resultSet = statement.executeQuery(sql);
 
         while (resultSet.next()) {
-            location = new Location();
-            location.setId(resultSet.getInt("id"));
-            location.setName(resultSet.getString("name"));
-            location.setLabel(resultSet.getString("label"));
-            location.setAddress(resultSet.getString("address"));
+            course = new Course();
+            course.setId(resultSet.getInt("id"));
+            course.setName(resultSet.getString("name"));
+            course.setDescription(resultSet.getString("description"));
+            course.setQualification(Qualification.valueOf(resultSet.getString("qualification")));
 
         }
         DBUtil.closeConnection();
-        return location;
+        return course;
     }
 
     @Override
-    public boolean updateLocation(Location location) {
+    public boolean updateCourse(Course course) {
         boolean flag = false;
 
         try {
-            String sql = "update Location set name=?, label=?,address=? where id= ?";
+            String sql = "update Course set name=?, description=?, qualification=? where id= ?";
             connection = DBUtil.openConnection();
             preparedStmt = connection.prepareStatement(sql);
-            preparedStmt.setString(1,location.getName());
-            preparedStmt.setString(2, location.getLabel());
-            preparedStmt.setString(3, location.getAddress());
-            preparedStmt.setInt(4, location.getId());
+            preparedStmt.setString(1,course.getName());
+            preparedStmt.setString(2, course.getDescription());
+            preparedStmt.setString(3, String.valueOf(course.getQualification()));
+            preparedStmt.setInt(4, course.getId());
             preparedStmt.executeUpdate();
             flag = true;
         } catch (ClassNotFoundException ex) {

@@ -1,9 +1,6 @@
 package DAO;
 
 import Enums.DepartmentType;
-import Enums.DepartmentType;
-import Model.Department;
-import Model.Department;
 import Model.Department;
 import Util.DBUtil;
 
@@ -21,8 +18,8 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 
     @Override
     public List<Department> getAllDepartment() throws SQLException, ClassNotFoundException {
-        List<Department> departmentList = new ArrayList<Department>();
-        Connection connection = null;
+        List<Department> departmentList = new ArrayList<>();
+        Connection connection;
         String sql = "select * from Department ";
         connection = DBUtil.openConnection();
         Statement statement = connection.createStatement();
@@ -30,18 +27,22 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 
         while (resultSet.next()) {
             Department department = new Department();
-            department.setId(resultSet.getInt("id"));
-            department.setName(resultSet.getString("name"));
-            department.setLabel(resultSet.getString("label"));
-            department.setCode(resultSet.getString("code"));
-            department.setParent(resultSet.getInt("parent"));
-            department.setType(DepartmentType.valueOf(resultSet.getString("type")));
+            createDepartmentObject(department);
             departmentList.add(department);
 
         }
         DBUtil.closeConnection();
 
         return departmentList;
+    }
+
+    private void createDepartmentObject(Department department) throws SQLException {
+        department.setId(resultSet.getInt("id"));
+        department.setName(resultSet.getString("name"));
+        department.setLabel(resultSet.getString("label"));
+        department.setCode(resultSet.getString("code"));
+        department.setParent(resultSet.getInt("parent"));
+        department.setType(DepartmentType.valueOf(resultSet.getString("type")));
     }
 
     @Override
@@ -101,13 +102,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
         Department department = null;
         while (resultSet.next()) {
             department = new Department();
-            department.setId(resultSet.getInt("id"));
-            department.setName(resultSet.getString("name"));
-            department.setLabel(resultSet.getString("label"));
-            department.setCode(resultSet.getString("code"));
-            department.setParent(resultSet.getInt("parent"));
-            department.setType(DepartmentType.valueOf(resultSet.getString("type")));
-
+            createDepartmentObject(department);
 
 
         }
@@ -129,14 +124,13 @@ public class DepartmentDAOImpl implements DepartmentDAO{
             preparedStmt.setString(3, department.getCode());
             preparedStmt.setString(4, String.valueOf(department.getParent()));
             preparedStmt.setString(5, department.getType().toString());
+            preparedStmt.setInt(6, department.getId());
             preparedStmt.executeUpdate();
             flag = true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DepartmentDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (Exception e){
-            System.out.println(e);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return flag;
     }

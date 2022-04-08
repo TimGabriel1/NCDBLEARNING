@@ -11,20 +11,20 @@ public class TrainingMajor {
     private String location;
     private String certificate;
     private boolean active;
-    private TrainingCourse trainingCourse;
+    private Course course;
     private TrainingSponsor trainingSponsor;
 
     public TrainingMajor() {
     }
 
-    public TrainingMajor(Date startDate, Date endDate, TrainingProvider trainingProvider, String location, String certificate, boolean active, TrainingCourse trainingCourse, TrainingSponsor trainingSponsor) {
+    public TrainingMajor(Date startDate, Date endDate, TrainingProvider trainingProvider, String location, String certificate, boolean active, Course course, TrainingSponsor trainingSponsor) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.trainingProvider = trainingProvider;
         this.location = location;
         this.certificate = certificate;
         this.active = active;
-        this.trainingCourse = trainingCourse;
+        this.course = course;
         this.trainingSponsor = trainingSponsor;
     }
 
@@ -76,12 +76,12 @@ public class TrainingMajor {
         this.active = active;
     }
 
-    public TrainingCourse getTrainingCourse() {
-        return trainingCourse;
+    public Course getTrainingCourse() {
+        return course;
     }
 
-    public void setTrainingCourse(TrainingCourse trainingCourse) {
-        this.trainingCourse = trainingCourse;
+    public void setTrainingCourse(Course course) {
+        this.course = course;
     }
 
     public TrainingSponsor getTrainingSponsor() {
@@ -101,7 +101,7 @@ public class TrainingMajor {
                 ", location='" + location + '\'' +
                 ", certificate='" + certificate + '\'' +
                 ", active=" + active +
-                ", trainingCourse=" + trainingCourse +
+                ", trainingCourse=" + course +
                 ", trainingSponsor=" + trainingSponsor +
                 '}';
     }
