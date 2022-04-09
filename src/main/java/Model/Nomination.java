@@ -3,26 +3,24 @@ package Model;
 import Enums.TrainingResidence;
 import Enums.TrainingSponsor;
 
-import java.util.ArrayList;
-
 public class Nomination {
     private int id;
     private Training training;
     private TrainingProvider trainingProvider;
     private TrainingSponsor trainingSponsor;
     private TrainingResidence trainingResidence;
-    private ArrayList<Staff> nominees;
+    private Staff nominee;
 
     public Nomination() {
     }
 
-    public Nomination(int id, Training training, TrainingProvider trainingProvider, TrainingSponsor trainingSponsor, TrainingResidence trainingResidence, ArrayList<Staff> nominees) {
+    public Nomination(int id, Training training, TrainingProvider trainingProvider, TrainingSponsor trainingSponsor, TrainingResidence trainingResidence, Staff nominee) {
         this.id = id;
         this.training = training;
         this.trainingProvider = trainingProvider;
         this.trainingSponsor = trainingSponsor;
         this.trainingResidence = trainingResidence;
-        this.nominees = nominees;
+        this.nominee = nominee;
     }
 
     public int getId() {
@@ -65,12 +63,12 @@ public class Nomination {
         this.trainingResidence = trainingResidence;
     }
 
-    public ArrayList<Staff> getNominees() {
-        return nominees;
+    public Staff getNominee() {
+        return nominee;
     }
 
-    public void setNominees(ArrayList<Staff> nominees) {
-        this.nominees = nominees;
+    public void setNominee(Staff nominee) {
+        this.nominee = nominee;
     }
 
     @Override
@@ -81,7 +79,7 @@ public class Nomination {
                 ", trainingProvider=" + trainingProvider +
                 ", trainingSponsor=" + trainingSponsor +
                 ", trainingResidence=" + trainingResidence +
-                ", nominees=" + nominees.toString() +
+                ", nominees=" + nominee.toString() +
                 '}';
     }
 }
