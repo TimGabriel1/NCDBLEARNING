@@ -1,8 +1,9 @@
 package Controller;
 
-import DAO.LocationDAO;
-import DAO.LocationDAOImpl;
-import Model.Location;
+import DAO.CourseDAO;
+import DAO.CourseDAOImpl;
+import Enums.Qualification;
+import Model.Course;
 import Util.JSONUtil;
 import Util.ServletUtil;
 
@@ -13,49 +14,51 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/location")
-public class LocationController extends HttpServlet {
-    private final LocationDAO locationDAO;
+@WebServlet("/course")
+public class CourseController extends HttpServlet {
+
+    private final CourseDAO courseDAO;
     private final JSONUtil jsonUtil;
-    public LocationController(){
 
-        locationDAO = new LocationDAOImpl();
+    public CourseController() {
+        courseDAO = new CourseDAOImpl();
         jsonUtil = new JSONUtil();
-
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ArrayList<Location> locations;
-        Location location;
-    //Check if Parameter as ID
+        ArrayList<Course> courses;
+        Course course;
+        //Check if Parameter as ID
         try{
-        if(  req.getParameterMap().containsKey("id"))
-        {
-            String id =req.getParameter("id");
-            location = locationDAO.getLocation(Integer.parseInt(id));
-                jsonUtil.sendAsJson(resp, location);
+            if(  req.getParameterMap().containsKey("id"))
+            {
+                String id =req.getParameter("id");
+                course = courseDAO.getCourse(Integer.parseInt(id));
+                jsonUtil.sendAsJson(resp, course);
             }
-        if(req.getParameterMap().isEmpty()){
-            System.out.println("No parameter");
-            locations = (ArrayList<Location>) locationDAO.getAllLocation();
-            System.out.println("All Locations");
-            jsonUtil.sendAsJson(resp, locations);
+            if(req.getParameterMap().isEmpty()){
+                System.out.println("No parameter");
+                courses = (ArrayList<Course>) courseDAO.getAllCourses();
+                System.out.println("All Courses");
+                jsonUtil.sendAsJson(resp, courses);
 
-        }
+            }
 
         }catch( Exception e){
-        e.printStackTrace();
-        resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Location location = new Location();
+        Course course = new Course();
         try {
-            location.setLabel(ServletUtil.getField(req, "label",true));
-            location.setAddress(ServletUtil.getField(req, "address", true));
-            location.setName(ServletUtil.getField(req, "name", true));
-            if(locationDAO.saveLocation(location)){
+            course.setName(ServletUtil.getField(req, "name",true));
+            course.setDescription(ServletUtil.getField(req, "description", true));
+            course.setQualification(Qualification.valueOf(ServletUtil.getField(req, "qualification", true).toUpperCase()));
+            if(courseDAO.saveCourse(course)){
                 resp.setContentType("application/json");
                 resp.setStatus(HttpServletResponse.SC_CREATED);
                 System.out.println("saved");
@@ -70,14 +73,15 @@ public class LocationController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Location location = new Location();
+        Course course = new Course();
         try {
 
-            location.setId(Integer.parseInt(ServletUtil.getField(req, "id", true)));
-            location.setLabel(ServletUtil.getField(req, "label",true));
-            location.setAddress(ServletUtil.getField(req, "address", true));
-            location.setName(ServletUtil.getField(req, "name", true));
-            if(locationDAO.updateLocation(location)){
+            course.setId(Integer.parseInt(ServletUtil.getField(req, "id", true)));
+            course.setDescription(ServletUtil.getField(req, "name", true));
+            course.setName(ServletUtil.getField(req, "description", true));
+            course.setQualification(Qualification.valueOf(ServletUtil.getField(req, "qualification", true).toUpperCase()));
+
+            if(courseDAO.updateCourse(course)){
                 resp.setContentType("application/json");
                 resp.setStatus(HttpServletResponse.SC_OK);
                 System.out.println("Record Updated");
@@ -95,7 +99,7 @@ public class LocationController extends HttpServlet {
         try {
             int id = Integer.parseInt(ServletUtil.getField(req, "id", true));
 
-            if(locationDAO.deleteLocation(id)){
+            if(courseDAO.deleteCourse(id)){
                 resp.setContentType("application/json");
                 resp.setStatus(HttpServletResponse.SC_OK);
                 System.out.println("deleted");
@@ -107,3 +111,4 @@ public class LocationController extends HttpServlet {
 
     }
 }
+

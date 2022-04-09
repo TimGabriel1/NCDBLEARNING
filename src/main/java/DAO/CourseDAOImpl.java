@@ -56,7 +56,7 @@ public class CourseDAOImpl implements CourseDAO{
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setString(1,course.getName());
             preparedStmt.setString(2, course.getDescription());
-            preparedStmt.setString(3, course.getQualification().name());
+            preparedStmt.setString(3, course.getQualification().toString());
 
             preparedStmt.executeUpdate();
             flag = true;
