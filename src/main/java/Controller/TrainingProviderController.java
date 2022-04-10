@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/trainingController")
+@WebServlet("/trainingprovider")
 public class TrainingProviderController extends HttpServlet
     
 {
@@ -57,7 +57,7 @@ public class TrainingProviderController extends HttpServlet
             trainingProvider.setName(ServletUtil.getField(req, "name",true));
             trainingProvider.setAddress(ServletUtil.getField(req, "address", true));
             trainingProvider.setEmail(req.getParameter("email"));
-            trainingProvider.setPhoneNumber(req.getParameter("phoneNumber"));
+            trainingProvider.setPhoneNumber(req.getParameter("phonenumber"));
             trainingProvider.setWebsite(req.getParameter("website"));
             if(trainingProviderDAO.saveTrainingProvider(trainingProvider)){
                 resp.setContentType("application/json");
@@ -81,7 +81,7 @@ public class TrainingProviderController extends HttpServlet
             trainingProvider.setName(ServletUtil.getField(req, "name",true));
             trainingProvider.setAddress(ServletUtil.getField(req, "address", true));
             trainingProvider.setEmail(req.getParameter("email"));
-            trainingProvider.setPhoneNumber(req.getParameter("phoneNumber"));
+            trainingProvider.setPhoneNumber(req.getParameter("phonenumber"));
             trainingProvider.setWebsite(req.getParameter("website"));
             if(trainingProviderDAO.updateTrainingProvider(trainingProvider)){
                 resp.setContentType("application/json");

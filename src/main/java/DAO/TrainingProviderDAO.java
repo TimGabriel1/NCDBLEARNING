@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.TrainingMajor;
 import Model.TrainingProvider;
 
 import java.sql.SQLException;
@@ -11,4 +12,5 @@ public interface TrainingProviderDAO {
     boolean deleteTrainingProvider(int id);
     TrainingProvider getTrainingProvider(int id) throws SQLException, ClassNotFoundException;
     boolean updateTrainingProvider(TrainingProvider trainingProvider);
+
 }

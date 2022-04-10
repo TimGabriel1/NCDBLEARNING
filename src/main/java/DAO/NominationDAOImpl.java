@@ -1,7 +1,6 @@
 package DAO;
 
 import Model.Nomination;
-import Model.Nomination;
 import Util.DBUtil;
 
 import java.sql.*;
@@ -41,16 +40,14 @@ public class NominationDAOImpl implements NominationDAO{
         boolean flag;
         try {
 
-            String sql = "insert into Nomination(name, label, address) "
-                    + "values(?,?,?)";
+            String sql = "insert into Nomination(training, trainingProvider, trainingSponsor, trainingResidence, nominationID) "
+                    + "values(?,?,?,?,?)";
             try {
                 connection = DBUtil.openConnection();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(StaffDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-            preparedStmt = connection.prepareStatement(sql);
-
-
+            setNominationObject(nomination, sql);
             preparedStmt.executeUpdate();
             flag = true;
 
@@ -106,11 +103,10 @@ public class NominationDAOImpl implements NominationDAO{
         boolean flag = false;
 
         try {
-            String sql = "update Nomination set name=?, label=?,address=? where id= ?";
+            String sql = "update Nomination set training=?, trainingProvider=?, trainingSponsor=?, trainingResidence=?, nominationID=? where id= ?";
             connection = DBUtil.openConnection();
-            preparedStmt = connection.prepareStatement(sql);
-
-            preparedStmt.setInt(4, nomination.getId());
+            setNominationObject(nomination, sql);
+            preparedStmt.setInt(6, nomination.getId());
             preparedStmt.executeUpdate();
             flag = true;
         } catch (ClassNotFoundException ex) {
@@ -119,5 +115,14 @@ public class NominationDAOImpl implements NominationDAO{
             ex.printStackTrace();
         }
         return flag;
+    }
+
+    private void setNominationObject(Nomination nomination, String sql) throws SQLException {
+        preparedStmt = connection.prepareStatement(sql);
+        preparedStmt.setInt(1, nomination.getTraining().getId());
+        preparedStmt.setInt(2, nomination.getTrainingProvider().getId());
+        preparedStmt.setString(3, nomination.getTrainingSponsor().name());
+        preparedStmt.setString(4, nomination.getTrainingResidence().name());
+        preparedStmt.setString(5, nomination.getNominationId());
     }
 }

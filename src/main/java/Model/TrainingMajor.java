@@ -2,9 +2,10 @@ package Model;
 
 import Enums.TrainingSponsor;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class TrainingMajor {
+    private int id;
     private Date startDate;
     private Date endDate;
     private TrainingProvider trainingProvider;
@@ -17,7 +18,8 @@ public class TrainingMajor {
     public TrainingMajor() {
     }
 
-    public TrainingMajor(Date startDate, Date endDate, TrainingProvider trainingProvider, String location, String certificate, boolean active, Course course, TrainingSponsor trainingSponsor) {
+    public TrainingMajor(int id, Date startDate, Date endDate, TrainingProvider trainingProvider, String location, String certificate, boolean active, Course course, TrainingSponsor trainingSponsor) {
+        this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.trainingProvider = trainingProvider;
@@ -92,16 +94,33 @@ public class TrainingMajor {
         this.trainingSponsor = trainingSponsor;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     @Override
     public String toString() {
         return "TrainingMajor{" +
-                "startDate=" + startDate +
+                "id=" + id +
+                ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", trainingProvider=" + trainingProvider +
                 ", location='" + location + '\'' +
                 ", certificate='" + certificate + '\'' +
                 ", active=" + active +
-                ", trainingCourse=" + course +
+                ", course=" + course +
                 ", trainingSponsor=" + trainingSponsor +
                 '}';
     }
