@@ -1,5 +1,7 @@
 package Util;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.UUID;
 
 public class ServletUtil {
 
@@ -13,5 +15,22 @@ public class ServletUtil {
             }
         }
         return fieldValue;
+    }
+
+    public static String generateUUID(){
+        UUID uuid = UUID.randomUUID();
+        System.out.println("Generated :" + uuid.toString() );
+        Date date = new Date();
+        String id = date.toString().substring(4,14)+uuid.toString();
+        id = id.replaceAll("\\s","-");
+        System.out.println(id);
+
+
+
+        return id;
+    }
+
+    public static void main(String[] args) {
+        generateUUID();
     }
 }

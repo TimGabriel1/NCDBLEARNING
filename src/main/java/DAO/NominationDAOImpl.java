@@ -29,9 +29,7 @@ public class NominationDAOImpl implements NominationDAO{
         while (resultSet.next()) {
             Nomination nomination = new Nomination();
             nomination.setId(resultSet.getInt("id"));
-            nomination.setName(resultSet.getString("name"));
-            nomination.setLabel(resultSet.getString("label"));
-            nomination.setAddress(resultSet.getString("address"));
+
             nominationList.add(nomination);
         }
         DBUtil.closeConnection();
@@ -51,9 +49,7 @@ public class NominationDAOImpl implements NominationDAO{
                 Logger.getLogger(StaffDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
             preparedStmt = connection.prepareStatement(sql);
-            preparedStmt.setString(1,nomination.getName());
-            preparedStmt.setString(2, nomination.getLabel());
-            preparedStmt.setString(3, nomination.getAddress());
+
 
             preparedStmt.executeUpdate();
             flag = true;
@@ -98,9 +94,7 @@ public class NominationDAOImpl implements NominationDAO{
         while (resultSet.next()) {
             nomination = new Nomination();
             nomination.setId(resultSet.getInt("id"));
-            nomination.setName(resultSet.getString("name"));
-            nomination.setLabel(resultSet.getString("label"));
-            nomination.setAddress(resultSet.getString("address"));
+
 
         }
         DBUtil.closeConnection();
@@ -115,9 +109,7 @@ public class NominationDAOImpl implements NominationDAO{
             String sql = "update Nomination set name=?, label=?,address=? where id= ?";
             connection = DBUtil.openConnection();
             preparedStmt = connection.prepareStatement(sql);
-            preparedStmt.setString(1,nomination.getName());
-            preparedStmt.setString(2, nomination.getLabel());
-            preparedStmt.setString(3, nomination.getAddress());
+
             preparedStmt.setInt(4, nomination.getId());
             preparedStmt.executeUpdate();
             flag = true;

@@ -2,25 +2,29 @@ package Model;
 
 import Enums.TrainingResidence;
 import Enums.TrainingSponsor;
+import Util.ServletUtil;
+
+import java.util.List;
 
 public class Nomination {
     private int id;
+    private String nominationId;
     private Training training;
     private TrainingProvider trainingProvider;
-    private TrainingSponsor trainingSponsor;
-    private TrainingResidence trainingResidence;
-    private Staff nominee;
+    private TrainingSponsor trainingSponsor; // Enum
+    private TrainingResidence trainingResidence; //Enum
+    private List<Staff> nominees;
 
     public Nomination() {
     }
 
-    public Nomination(int id, Training training, TrainingProvider trainingProvider, TrainingSponsor trainingSponsor, TrainingResidence trainingResidence, Staff nominee) {
+    public Nomination(int id, Training training, TrainingProvider trainingProvider, TrainingSponsor trainingSponsor, TrainingResidence trainingResidence, List<Staff> nominees) {
         this.id = id;
         this.training = training;
         this.trainingProvider = trainingProvider;
         this.trainingSponsor = trainingSponsor;
         this.trainingResidence = trainingResidence;
-        this.nominee = nominee;
+        this.nominees = nominees;
     }
 
     public int getId() {
@@ -63,12 +67,28 @@ public class Nomination {
         this.trainingResidence = trainingResidence;
     }
 
-    public Staff getNominee() {
-        return nominee;
+    public List<Staff> getNominee() {
+        return nominees;
     }
 
-    public void setNominee(Staff nominee) {
-        this.nominee = nominee;
+    public void setNominee(List<Staff> nominees) {
+        this.nominees = nominees;
+    }
+
+    public String getNominationId() {
+        return nominationId;
+    }
+
+    public void setNominationId() {
+        this.nominationId = ServletUtil.generateUUID();
+    }
+
+    public List<Staff> getNominees() {
+        return nominees;
+    }
+
+    public void setNominees(List<Staff> nominees) {
+        this.nominees = nominees;
     }
 
     @Override
@@ -79,7 +99,7 @@ public class Nomination {
                 ", trainingProvider=" + trainingProvider +
                 ", trainingSponsor=" + trainingSponsor +
                 ", trainingResidence=" + trainingResidence +
-                ", nominees=" + nominee.toString() +
+                ", nomineess=" + nominees.toString() +
                 '}';
     }
 }
