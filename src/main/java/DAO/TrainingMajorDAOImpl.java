@@ -1,6 +1,5 @@
 package DAO;
 
-import Enums.TrainingSponsor;
 import Model.TrainingMajor;
 import Util.DBUtil;
 
@@ -14,12 +13,8 @@ public class TrainingMajorDAOImpl implements TrainingMajorDAO{
     private Connection connection;
     private ResultSet resultSet;
     private PreparedStatement preparedStmt;
-    private final TrainingProviderDAOImpl trainingProviderDAO;
-    private final CourseDAOImpl courseDAO;
 
     public TrainingMajorDAOImpl() {
-        this.trainingProviderDAO = new TrainingProviderDAOImpl();
-        this.courseDAO = new CourseDAOImpl();
 
     }
 
@@ -114,7 +109,7 @@ public class TrainingMajorDAOImpl implements TrainingMajorDAO{
         return trainingMajor;
     }
 
-    private void setTrainingMajorObject(TrainingMajor trainingMajor) throws SQLException, ClassNotFoundException {
+    private void setTrainingMajorObject(TrainingMajor trainingMajor) throws SQLException {
         trainingMajor.setId(resultSet.getInt("id"));
         trainingMajor.setActive(resultSet.getBoolean("active"));
         trainingMajor.setName(resultSet.getString("name"));

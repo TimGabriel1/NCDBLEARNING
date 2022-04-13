@@ -1,10 +1,11 @@
 package Model;
 
+
 import Enums.*;
 
 import java.sql.Date;
 
-public class TrainingDetails {
+public class TrainingDetail {
     private int id;
     private Training training;
     private Qualification qualification;
@@ -20,7 +21,7 @@ public class TrainingDetails {
     private TrainingAction action;
     private boolean completed;
 
-    public TrainingDetails() {
+    public TrainingDetail() {
     }
 
     public int getId() {
@@ -155,4 +156,5 @@ public class TrainingDetails {
                 '}';
     }
 }
+
 

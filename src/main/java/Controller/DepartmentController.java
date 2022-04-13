@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/department")
+@WebServlet("/departments")
 public class DepartmentController extends HttpServlet {
 
 

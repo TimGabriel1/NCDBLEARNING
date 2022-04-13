@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/course")
+@WebServlet("/courses")
 public class CourseController extends HttpServlet {
 
     private final CourseDAO courseDAO;

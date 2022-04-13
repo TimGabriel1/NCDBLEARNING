@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/trainingprovider")
+@WebServlet("/training-providers")
 public class TrainingProviderController extends HttpServlet
     
 {

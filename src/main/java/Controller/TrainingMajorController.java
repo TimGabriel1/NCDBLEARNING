@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/training-major")
+@WebServlet("/training-majors")
 public class TrainingMajorController extends HttpServlet {
 
     private final TrainingMajorDAOImpl trainingMajorDAO;

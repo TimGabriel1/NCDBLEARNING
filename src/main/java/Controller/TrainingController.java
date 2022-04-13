@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/training")
+@WebServlet("/trainings")
 public class TrainingController extends HttpServlet {
     private final TrainingDAO trainingDAO;
     private final JSONUtil jsonUtil;
@@ -107,5 +107,5 @@ public class TrainingController extends HttpServlet {
         }
 
     }
-    
+
 }
