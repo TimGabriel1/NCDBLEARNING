@@ -9,7 +9,7 @@ import java.util.List;
 public class Nomination {
     private int id;
     private String nominationId;
-    private Training training;
+    private Training boardTraining;
     private TrainingProvider trainingProvider;
     private TrainingSponsor trainingSponsor; // Enum
     private TrainingResidence trainingResidence; //Enum
@@ -18,9 +18,9 @@ public class Nomination {
     public Nomination() {
     }
 
-    public Nomination(int id, Training training, TrainingProvider trainingProvider, TrainingSponsor trainingSponsor, TrainingResidence trainingResidence, List<Staff> nominees) {
+    public Nomination(int id, Training boardTraining, TrainingProvider trainingProvider, TrainingSponsor trainingSponsor, TrainingResidence trainingResidence, List<Staff> nominees) {
         this.id = id;
-        this.training = training;
+        this.boardTraining = boardTraining;
         this.trainingProvider = trainingProvider;
         this.trainingSponsor = trainingSponsor;
         this.trainingResidence = trainingResidence;
@@ -36,11 +36,11 @@ public class Nomination {
     }
 
     public Training getTraining() {
-        return training;
+        return boardTraining;
     }
 
-    public void setTraining(Training training) {
-        this.training = training;
+    public void setTraining(Training boardTraining) {
+        this.boardTraining = boardTraining;
     }
 
     public TrainingProvider getTrainingProvider() {
@@ -95,7 +95,7 @@ public class Nomination {
     public String toString() {
         return "Nomination{" +
                 "id=" + id +
-                ", training=" + training +
+                ", boardTraining=" + boardTraining +
                 ", trainingProvider=" + trainingProvider +
                 ", trainingSponsor=" + trainingSponsor +
                 ", trainingResidence=" + trainingResidence +

@@ -1,6 +1,6 @@
 package DAO;
 
-import Enums.TrainingSponsor;
+import Model.Training;
 import Model.TrainingMajor;
 import Util.DBUtil;
 
@@ -10,26 +10,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TrainingMajorDAOImpl implements TrainingMajorDAO{
+public class TrainingDAOImpl implements TrainingDAO{
+
+
     private Connection connection;
     private ResultSet resultSet;
     private PreparedStatement preparedStmt;
-    private final TrainingProviderDAOImpl trainingProviderDAO;
-    private final CourseDAOImpl courseDAO;
-
-    public TrainingMajorDAOImpl() {
-        this.trainingProviderDAO = new TrainingProviderDAOImpl();
-        this.courseDAO = new CourseDAOImpl();
-
-    }
-
 
     @Override
-    public List<TrainingMajor> getAllTrainingMajors() throws SQLException, ClassNotFoundException {
+    public List<Training> getAllTrainings() throws SQLException, ClassNotFoundException {
 
-        List<TrainingMajor> trainingMajorList = new ArrayList<>();
+        List<Training> trainingList = new ArrayList<>();
 
-        String sql = "select * from TrainingMajor ";
+        String sql = "select * from Training ";
 
         connection = DBUtil.openConnection();
 
@@ -38,20 +31,25 @@ public class TrainingMajorDAOImpl implements TrainingMajorDAO{
         resultSet = statement.executeQuery(sql);
 
         while (resultSet.next()) {
-            TrainingMajor trainingMajor = new TrainingMajor();
-            setTrainingMajorObject(trainingMajor);
-            trainingMajorList.add(trainingMajor);
+            Training training = new Training();
+            training.setId(resultSet.getInt("id"));
+            training.setTitle(resultSet.getString("title"));
+            training.setMajor(new TrainingMajorDAOImpl().getTrainingMajor(resultSet.getInt("major")));
+            training.setLabel(resultSet.getString("label"));
+            training.setCreatedAt(resultSet.getDate("createdAt"));
+            training.setUpdatedAt(resultSet.getDate("updatedAt"));
+            trainingList.add(training);
         }
         DBUtil.closeConnection();
-        return trainingMajorList;
+        return trainingList;
     }
 
     @Override
-    public boolean saveTrainingMajor(TrainingMajor trainingMajor) {
+    public boolean saveTraining(Training training) {
         boolean flag;
         try {
 
-            String sql = "insert into TrainingMajor(active, name, label, createdAt) "
+            String sql = "insert into Training(title, label, major, createdAt) "
                     + "values(?,?,?,?)";
             try {
                 connection = DBUtil.openConnection();
@@ -59,9 +57,9 @@ public class TrainingMajorDAOImpl implements TrainingMajorDAO{
                 Logger.getLogger(StaffDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
             preparedStmt = connection.prepareStatement(sql);
-            preparedStmt.setBoolean(1, trainingMajor.isActive());
-            preparedStmt.setString(2, trainingMajor.getName());
-            preparedStmt.setString(3, trainingMajor.getLabel());
+            preparedStmt.setString(1,training.getTitle());
+            preparedStmt.setString(2, training.getLabel());
+            preparedStmt.setInt(3, training.getMajor().getId());
             preparedStmt.setDate(4, Date.valueOf(new Date(System.currentTimeMillis()).toString()));
 
             preparedStmt.executeUpdate();
@@ -76,10 +74,10 @@ public class TrainingMajorDAOImpl implements TrainingMajorDAO{
     }
 
     @Override
-    public boolean deleteTrainingMajor(int id) {
+    public boolean deleteTraining(int id) {
         boolean flag = false;
         try {
-            String sql = "DELETE FROM TrainingMajor WHERE id=" + id;
+            String sql = "DELETE FROM Training WHERE id=" + id;
             connection = DBUtil.openConnection();
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.executeUpdate();
@@ -95,48 +93,42 @@ public class TrainingMajorDAOImpl implements TrainingMajorDAO{
     }
 
     @Override
-    public TrainingMajor getTrainingMajor(int id) throws SQLException, ClassNotFoundException {
-        String sql = "select * from TrainingMajor where id =" + id;
-        TrainingMajor trainingMajor;
+    public Training getTraining(int id) throws SQLException, ClassNotFoundException {
+        String sql = "select * from Training where id =" + id;
+        Training training = null;
         connection = DBUtil.openConnection();
 
 
         Statement statement = connection.createStatement();
         resultSet = statement.executeQuery(sql);
-        trainingMajor = new TrainingMajor();
+
         while (resultSet.next()) {
-
-            setTrainingMajorObject(trainingMajor);
-
+            training = new Training();
+            training.setId(resultSet.getInt("id"));
+            training.setTitle(resultSet.getString("title"));
+            training.setLabel(resultSet.getString("label"));
+            training.setMajor(new TrainingMajorDAOImpl().getTrainingMajor(resultSet.getInt("major")));
+            training.setCreatedAt(resultSet.getDate("createdAt"));
+            training.setUpdatedAt(resultSet.getDate("updatedAt"));
 
         }
         DBUtil.closeConnection();
-        return trainingMajor;
+        return training;
     }
 
-    private void setTrainingMajorObject(TrainingMajor trainingMajor) throws SQLException, ClassNotFoundException {
-        trainingMajor.setId(resultSet.getInt("id"));
-        trainingMajor.setActive(resultSet.getBoolean("active"));
-        trainingMajor.setName(resultSet.getString("name"));
-        trainingMajor.setLabel(resultSet.getString("label"));
-        trainingMajor.setCreatedAt(resultSet.getDate("createdAt"));
-        trainingMajor.setUpdatedAt(resultSet.getDate("updatedAt"));
-
-         }
-
     @Override
-    public boolean updateTrainingMajor(TrainingMajor trainingMajor) {
+    public boolean updateTraining(Training training) {
         boolean flag = false;
 
         try {
-            String sql = "update TrainingMajor set active=?, name=?, label=?, updatedAt=? where id= ?";
+            String sql = "update Training set title=?, label=?, major=?, updatedAt=? where id= ?";
             connection = DBUtil.openConnection();
             preparedStmt = connection.prepareStatement(sql);
-            preparedStmt.setBoolean(1, trainingMajor.isActive());
-            preparedStmt.setString(2, trainingMajor.getName());
-            preparedStmt.setString(3, trainingMajor.getLabel());
+            preparedStmt.setString(1,training.getTitle());
+            preparedStmt.setString(2, training.getLabel());
+            preparedStmt.setInt(3, training.getMajor().getId());
             preparedStmt.setDate(4, Date.valueOf(new Date(System.currentTimeMillis()).toString()));
-            preparedStmt.setInt(5, trainingMajor.getId());
+            preparedStmt.setInt(5, training.getId());
             preparedStmt.executeUpdate();
             flag = true;
         } catch (ClassNotFoundException ex) {
@@ -146,6 +138,4 @@ public class TrainingMajorDAOImpl implements TrainingMajorDAO{
         }
         return flag;
     }
-
-
 }

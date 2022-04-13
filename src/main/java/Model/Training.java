@@ -1,19 +1,22 @@
 package Model;
 
-import java.util.Date;
+import Enums.Qualification;
+import Enums.TrainingResidence;
+import Enums.TrainingSponsor;
+
+import java.sql.Date;
 
 public class Training {
     private int id;
     private String Title;
-    private TrainingMajor trainingMajor;
+    private String label;
+    private TrainingMajor major;
+    private Date createdAt;
+    private Date updatedAt;
+
+
 
     public Training() {
-    }
-
-    public Training(int id, String title, TrainingMajor trainingMajor) {
-        this.id = id;
-        Title = title;
-        this.trainingMajor = trainingMajor;
     }
 
     public int getId() {
@@ -32,12 +35,36 @@ public class Training {
         Title = title;
     }
 
-    public TrainingMajor getTrainingMajor() {
-        return trainingMajor;
+    public String getLabel() {
+        return label;
     }
 
-    public void setTrainingMajor(TrainingMajor trainingMajor) {
-        this.trainingMajor = trainingMajor;
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public TrainingMajor getMajor() {
+        return major;
+    }
+
+    public void setMajor(TrainingMajor major) {
+        this.major = major;
     }
 
     @Override
@@ -45,7 +72,10 @@ public class Training {
         return "Training{" +
                 "id=" + id +
                 ", Title='" + Title + '\'' +
-                ", trainingMajor=" + trainingMajor +
+                ", label='" + label + '\'' +
+                ", major=" + major +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

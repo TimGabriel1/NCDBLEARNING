@@ -2,30 +2,26 @@ package Model;
 
 import Enums.NotificationStatus;
 import Enums.NotificationType;
+import java.sql.Timestamp;
 
 public class Notification {
-    private String id;
+    private int id;
     private String title;
     private String description;
     private NotificationType notificationType;
+    private Timestamp timestamp_generated;
     private NotificationStatus notificationStatus;
+    private Staff recipient;
+    private Timestamp timestamp_read;
 
     public Notification() {
     }
 
-    public Notification(String id, String title, String description, NotificationType notificationType, NotificationStatus notificationStatus) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.notificationType = notificationType;
-        this.notificationStatus = notificationStatus;
-    }
-
-    public String getId() {
+    public int  getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,11 +49,35 @@ public class Notification {
         this.notificationType = notificationType;
     }
 
+    public Timestamp getTimestamp_generated() {
+        return timestamp_generated;
+    }
+
+    public void setTimestamp_generated(Timestamp timestamp_generated) {
+        this.timestamp_generated = timestamp_generated;
+    }
+
     public NotificationStatus getNotificationStatus() {
         return notificationStatus;
     }
 
     public void setNotificationStatus(NotificationStatus notificationStatus) {
         this.notificationStatus = notificationStatus;
+    }
+
+    public Staff getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(Staff recipient) {
+        this.recipient = recipient;
+    }
+
+    public Timestamp getTimestamp_read() {
+        return timestamp_read;
+    }
+
+    public void setTimestamp_read(Timestamp timestamp_read) {
+        this.timestamp_read = timestamp_read;
     }
 }
