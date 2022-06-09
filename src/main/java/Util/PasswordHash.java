@@ -1,7 +1,5 @@
 package Util;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -26,3 +24,4 @@ public class PasswordHash {
         }
     }
 }
+

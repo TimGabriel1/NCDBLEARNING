@@ -24,9 +24,6 @@ public class ServletUtil {
         String id = date.toString().substring(4,14)+uuid.toString();
         id = id.replaceAll("\\s","-");
         System.out.println(id);
-
-
-
         return id;
     }
 
